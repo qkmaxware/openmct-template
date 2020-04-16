@@ -31,23 +31,35 @@
         openmct.install(openmct.plugins.LocalStorage());
         openmct.install(openmct.plugins.Generator());
         openmct.install(openmct.plugins.UTCTimeSystem());
+        openmct.install(openmct.plugins.LocalTimeSystem());
         openmct.install(openmct.plugins.AutoflowView({
             type: "telemetry.panel"
         }));
         openmct.install(openmct.plugins.Conductor({
             menuOptions: [
                 {
-                    name: "Realtime",
+                    name: "Realtime UTC",
                     timeSystem: 'utc',
                     clock: 'local',
-                    clockOffsets: {
-                        start: - THIRTY_MINUTES,
-                        end: FIVE_MINUTES
+                    clockOffsets: { start: - THIRTY_MINUTES, end: 0 }
+                },
+                {
+                    name: "Realtime Local",
+                    clock: 'local',
+                    timeSystem: 'local',
+                    clockOffsets: { start: - THIRTY_MINUTES, end: 0 }
+                },
+                {
+                    name: "Fixed UTC",
+                    timeSystem: 'utc',
+                    bounds: {
+                        start: Date.now() - THIRTY_MINUTES,
+                        end: Date.now()
                     }
                 },
                 {
-                    name: "Fixed",
-                    timeSystem: 'utc',
+                    name: "Fixed Local",
+                    timeSystem: 'local',
                     bounds: {
                         start: Date.now() - THIRTY_MINUTES,
                         end: Date.now()
@@ -57,10 +69,11 @@
         }));
         openmct.install(openmct.plugins.Notebook());
         openmct.install(openmct.plugins.LADTable());
-        openmct.install(openmct.plugins.ObjectMigration());
+        //openmct.install(openmct.plugins.ObjectMigration());
         openmct.install(openmct.plugins.SummaryWidget());
         openmct.install(openmct.plugins.Filters(['table', 'telemetry.plot.overlay']));
         openmct.install(openmct.plugins.ClearData(['table', 'telemetry.plot.overlay', 'telemetry.plot.stacked']));
+        openmct.install(openmct.plugins.WebPage());
 
         // BEGIN User defined plugin(s)
         <% if (locals.plugins) { %>

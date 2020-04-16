@@ -2,7 +2,8 @@
   "name": "OpenMCT",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "repository": "https://github.com/qkmaxware/openmct-template.git",
+  "main": "app.js",
   "scripts": {
     "start": "node app.js"
   },
@@ -10,15 +11,12 @@
     "ejs": "^3.0.2",
     "express": "^4.16.4",
     "express-ws": "^4.0.0",
-    "openmct": "file:../../openmct",
+    "openmct": "https://github.com/nasa/openmct.git",
     "request": "^2.88.2",
     "ws": "^6.1.2"
   },
   "plugins": {
-    "ksp": {
-      "client": "plugins/ksp/plugin.js",
-      "server": "plugins/ksp/plugin.proxy.js"
-    }
+    
   },
   "author": "Colin Halseth",
   "license": "MIT"

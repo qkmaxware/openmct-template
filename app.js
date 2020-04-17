@@ -4,6 +4,7 @@
 
 const express = require('express');
 const path = require("path");
+const bodyParser = require('body-parser')
 const fs = require("fs");
 const package = require('./package.json');
 
@@ -40,6 +41,8 @@ if (!fs.existsSync(plugin_path)) {
 /// ------------------------------------------------------------------------------------------------
 
 app.set('view engine', 'ejs');
+app.use(bodyParser.urlencoded({ extended: false })) // parse application/x-www-form-urlencoded
+app.use(bodyParser.json())                          // parse application/json
 app.use('/static', express.static(static_path));    // For serving static files
 app.use('/plugins', express.static(plugin_path));   // For serving plugins
 app.use('/openmct', express.static(openmct_path));  // For serving openmct itself

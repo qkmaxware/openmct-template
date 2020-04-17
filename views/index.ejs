@@ -44,22 +44,8 @@
                     clockOffsets: { start: - THIRTY_MINUTES, end: 0 }
                 },
                 {
-                    name: "Realtime Local",
-                    clock: 'local',
-                    timeSystem: 'local',
-                    clockOffsets: { start: - THIRTY_MINUTES, end: 0 }
-                },
-                {
                     name: "Fixed UTC",
                     timeSystem: 'utc',
-                    bounds: {
-                        start: Date.now() - THIRTY_MINUTES,
-                        end: Date.now()
-                    }
-                },
-                {
-                    name: "Fixed Local",
-                    timeSystem: 'local',
                     bounds: {
                         start: Date.now() - THIRTY_MINUTES,
                         end: Date.now()

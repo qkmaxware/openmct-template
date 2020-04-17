@@ -44,7 +44,8 @@
                 }
               }
             };
-            request.send(data);
+            request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            request.send(JSON.stringify(data));
         });
         return promise;
     };

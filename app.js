@@ -3,12 +3,14 @@
 /// ------------------------------------------------------------------------------------------------
 
 const express = require('express');
+const express_ws = require('express-ws');
 const path = require("path");
 const bodyParser = require('body-parser')
 const fs = require("fs");
 const package = require('./package.json');
 
 const app = express();
+express_ws(app);
 
 /// ------------------------------------------------------------------------------------------------
 /// Setup Required Paths
@@ -55,11 +57,19 @@ if (package.plugins) {
     for (var pluginName in package.plugins) {
         var plugin = package.plugins[pluginName];
         if (plugin.server) {
-            var module = require(__dirname + "/" + plugin.server);  // module should export a function
-            if (typeof module === "function") {
-                module(app);                                        // call the install function with the express app argument
-                console.log("> Installed plugin " + pluginName);
+            var server_plugins = plugin.server; // allow multiple server files
+            if (!Array.isArray(plugin.server)) {
+                // single file
+                server_plugins = [plugin.server];
             }
+
+            for (var i = 0; i < server_plugins.length; i++) {
+                var module = require(__dirname + "/" + server_plugins[i]);  // module should export a function
+                if (typeof module === "function") {
+                    module(app);                                        // call the install function with the express app argument
+                }
+            }
+            console.log("> Installed plugin " + pluginName);
         } else {
             console.log("> Installed plugin " + pluginName);
         }
